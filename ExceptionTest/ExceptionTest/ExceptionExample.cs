@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+/// <summary>
+/// 异常处理
+/// </summary>
 namespace ExceptionTest
 {
     public class Sentence
     {
         public Sentence(string s)
         {
-            Value = s;    
+            Value = s;
         }
         public string Value { get; set; }
         public char GetFirstChar()
@@ -29,11 +31,11 @@ namespace ExceptionTest
 
     class ExceptionExample
     {
-        static void Main(string[] args)
+        /*static void Main(string[] args)
         {
             Sentence s = new Sentence(null);//未实例化，将抛出异常
             //Sentence s = new Sentence("zhen");//正常调用
             Console.WriteLine($"the first character is {s.GetFirstChar()}");
-        }
+        }*/
     }
 }

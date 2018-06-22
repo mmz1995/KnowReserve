@@ -31,11 +31,27 @@ namespace ExceptionTest
 
     class ExceptionExample
     {
-        /*static void Main(string[] args)
+       /* static void Main(string[] args)
         {
             Sentence s = new Sentence(null);//未实例化，将抛出异常
             //Sentence s = new Sentence("zhen");//正常调用
             Console.WriteLine($"the first character is {s.GetFirstChar()}");
-        }*/
+        }*/ 
     }
+
+    public class DigitalBehavior
+    {
+        private List<int> initData = new List<int>();
+        public void InitDatalist()
+        {
+            Console.WriteLine("请输入数字：");
+            Console.ReadLine();
+        }
+        public List<int> GetOrderData()
+        {
+            List<int> result = null;
+            return result;
+        }
+        
+    } 
 }

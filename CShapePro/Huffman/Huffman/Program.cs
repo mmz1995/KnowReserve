@@ -11,7 +11,7 @@ namespace Huffman
         static Node root;
         static void Main(string[] args)
         {
-            int[] weights = { 25, 3, 9, 7, 18, 2 };
+            int[] weights = { 25, 3, 9, 7, 18, 2 ,102,52};
             CreateHuffman(weights);
         }
 
@@ -30,31 +30,34 @@ namespace Huffman
                     }
                 }
             }
-
-            for (int i = 0; i < length; i++)
+            
+            //Queue<Node> priorityQueue = new Queue<Node>();
+            List<Node> priorityList = new List<Node>();
+            for (int i = _weights.Length-1; i >-1; i--)
             {
-                Console.WriteLine("priorityQueue：___ index____:" + i + "___weight___:" + _weights[i]);
+                Node node = new Node(_weights[i]);               
+                priorityList.Add(node);
             }
 
-            Queue<Node> priorityQueue = new Queue<Node>();
-            for(int i = 0; i < _weights.Length; i++)
+            while (priorityList.Count > 1)
             {
-                Node node = new Node(_weights[i]);
-                priorityQueue.Enqueue(node);
-            }
-
-            while (priorityQueue.Count > 1)
-            {
-                Node left = priorityQueue.Dequeue();
-                Node right = priorityQueue.Peek();
-                priorityQueue.TrimExcess();
+                Node left = priorityList.Last();
+                priorityList.Remove(left);
+                Node right = priorityList.Last();
+                priorityList.Remove(right);
+             
                 Node parent = new Node(left.weight + right.weight, left, right);
-                priorityQueue.Enqueue(parent);               
-                
-                Console.WriteLine("count___:" + priorityQueue.Count + "___left___:" + left.weight + "___right___:" + right.weight + "___parent____:" + parent.weight);
+                priorityList.Add(parent);
+                priorityList.Sort((x,y)=> -x.weight.CompareTo(y.weight));
+                //Console.WriteLine("OrderBy____________________________________________:");
+                //foreach (Node node in priorityList)
+                //{
+                //    Console.WriteLine("OrderBy________:"+node.weight);
+                //}
+                //Console.WriteLine("count___:" + priorityList.Count + "___left___:" + left.weight + "___right___:" + right.weight + "___parent____:" + parent.weight);
             }
 
-            root = priorityQueue.Last();
+            root = priorityList.Last();
 
             Console.WriteLine("根节点：" + root.weight);
             ShowHuffmanTree(root);
@@ -62,22 +65,18 @@ namespace Huffman
 
         static void ShowHuffmanTree(Node curNode)
         {
-            if (curNode.left != null)
+            Node child_l = curNode.left;
+            if (child_l != null)
             {
-                Console.WriteLine(curNode.weight+"___left child ：" + curNode.left.weight);
-                if (curNode.left.left != null)
-                {
-                    ShowHuffmanTree(curNode.left.left);
-                }
+                Console.WriteLine(curNode.weight+"___left child ：" + child_l.weight);
+                ShowHuffmanTree(child_l);
             }
 
-            if (curNode.right != null)
+            Node child_r = curNode.right;
+            if (child_r != null)
             {
-                Console.WriteLine(curNode.weight + "___right child :  " + curNode.right.weight);
-                if (curNode.right.right != null)
-                {
-                    ShowHuffmanTree(curNode.right.right);
-                }
+                Console.WriteLine(curNode.weight + "___right child :  " + child_r.weight);
+                ShowHuffmanTree(child_r);
             }
             
         }
